@@ -9,5 +9,5 @@ Feature Requests
 ---
 1. Go to the issues page of the repository
 2. Click on "New Issue"
-3. Label the issue as "enhancement"
-4. Write your feature request
+3. Click on "Feature Request"
+4. Follow the guide
