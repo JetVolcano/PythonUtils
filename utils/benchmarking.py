@@ -1,3 +1,4 @@
+from collections import deque
 from collections.abc import Callable
 from functools import wraps
 from time import perf_counter
@@ -13,12 +14,12 @@ def benchmark(func: Callable) -> Callable:
     """
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
-        results: list = []
+        results: deque[float | int] = deque()
         for _ in repeat(None, 50):
             start = perf_counter()
             func(*args, **kwargs)
             end = perf_counter()
             results.append(end - start)
         average: float = sum(results) / len(results)
-        print(f"Benchmarking {func.__name__}({str(*args)+str(**kwargs)}) took {average:.8f} seconds")
+        print(f"Benchmarking {func.__name__}{str(args+tuple(kwargs))} took {average:.8f} seconds")
     return wrapper
