@@ -8,13 +8,13 @@ def benchmark(func: Callable) -> Callable:
     """
     Decorator to benchmark a function
     :param func: "function to benchmark"
-    when there is an TypeError when decorating your function please use the base function instead of the decorator
+    when there is a TypeError when decorating your function please use the base function instead of the decorator
     :return: "docstring of parameter func"
     """
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         results: list = []
-        for _ in repeat(None, 100):
+        for _ in repeat(None, 50):
             start = perf_counter()
             func(*args, **kwargs)
             end = perf_counter()
