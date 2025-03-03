@@ -15,7 +15,7 @@ def benchmark(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         results: deque[float | int] = deque()
-        for _ in repeat(None, 25):
+        for _ in repeat(None, 15):
             start = perf_counter()
             func(*args, **kwargs)
             end = perf_counter()
