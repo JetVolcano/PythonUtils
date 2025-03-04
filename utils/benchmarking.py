@@ -8,8 +8,10 @@ from itertools import repeat
 def benchmark(func: Callable) -> Callable:
     """
     Decorator to benchmark a function
-    :param func: "function to benchmark"
-    when there is a TypeError when decorating your function please use the base function instead of the decorator
+    ---
+    when there is a TypeError when decorating your function please use the base function instead of the decorator like this:
+    benchmark(func)(args)\n
+    :param func: "function to benchmark"\n
     :return: "docstring of parameter func"
     """
     @wraps(func)
@@ -22,5 +24,5 @@ def benchmark(func: Callable) -> Callable:
             end = perf_counter()
             results.append(end - start)
         average: float = sum(results) / len(results)
-        print(f"Benchmarking {func.__name__}{tuple(parameters)} took {average:.8f} seconds")
+        print(f"Benchmarking {func.__name__}{tuple(parameters)} took {average:.12f} seconds")
     return wrapper
