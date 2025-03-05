@@ -12,6 +12,7 @@ def benchmark(func: Callable) -> Callable:
     when there is a TypeError when decorating your function please use the base function instead of the decorator like this:
     benchmark(func)(args)\n
     :param func: "function to benchmark"\n
+    :type func: "Callable"\n
     :return: "docstring of parameter func"
     """
     @wraps(func)
