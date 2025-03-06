@@ -25,5 +25,5 @@ def benchmark(func: Callable) -> Callable:
             end = perf_counter()
             results.append(end - start)
         average: float = sum(results) / len(results)
-        print(f"Benchmarking {func.__name__}{parameters} took {average:.12f} seconds")
+        print(f"Benchmarking {func.__name__}{tuple(parameters)} took {average:.12f} seconds")
     return wrapper
