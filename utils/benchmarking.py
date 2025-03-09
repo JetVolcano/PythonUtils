@@ -19,7 +19,6 @@ def benchmark(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> None:
         results: deque[float | int] = deque()
         parameters: deque[tuple] = deque(*args+tuple(kwargs.items()), maxlen=1000)
-
         for _ in repeat(None, 15):
             start = perf_counter()
             ouput = func(*args, **kwargs)
