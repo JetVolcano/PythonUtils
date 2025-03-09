@@ -18,12 +18,14 @@ def benchmark(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         results: deque[float | int] = deque()
-        parameters: deque[tuple] = deque(args+tuple(kwargs.items()))
+        parameters: deque[tuple] = deque(*args+tuple(kwargs.items()), maxlen=1000)
+
         for _ in repeat(None, 15):
             start = perf_counter()
-            func(*args, **kwargs)
+            ouput = func(*args, **kwargs)
             end = perf_counter()
             results.append(end - start)
         average: float = sum(results) / len(results)
         print(f"Benchmarking {func.__name__}{tuple(parameters)} took {average:.12f} seconds")
+        return ouput
     return wrapper
