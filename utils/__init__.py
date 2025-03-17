@@ -1,1 +1,1 @@
-__all__ = ["benchmarking"]
+__all__ = ["performance"]
