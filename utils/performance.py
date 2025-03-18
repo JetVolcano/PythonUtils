@@ -1,5 +1,5 @@
 from collections import deque
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from functools import wraps
 from time import perf_counter
 from itertools import repeat
@@ -18,7 +18,10 @@ def benchmark(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         results: deque[float | int] = deque()
-        parameters: deque[tuple] = deque(*args+tuple(kwargs.items()), maxlen=1000)
+        if len(args) == 1 and len(tuple(kwargs.items())) == 0 or len(args) == 0 and len(tuple(kwargs.items())) == 1:
+            parameters = args+tuple(kwargs.items())
+        else:
+            parameters: deque[tuple] = deque(iter(*args+tuple(kwargs.items())), maxlen=1000)
         for _ in repeat(None, 15):
             start = perf_counter()
             ouput = func(*args, **kwargs)
