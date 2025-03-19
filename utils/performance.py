@@ -18,16 +18,17 @@ def benchmark(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         results: deque[float | int] = deque()
-        if len(args) == 1 and len(tuple(kwargs.items())) == 0 or len(args) == 0 and len(tuple(kwargs.items())) == 1:
-            parameters = args+tuple(kwargs.items())
-        else:
-            parameters: deque[tuple] = deque(iter(*args+tuple(kwargs.items())), maxlen=1000)
+        parameters: tuple[object] = args + tuple(kwargs.items())
         for _ in repeat(None, 15):
-            start = perf_counter()
-            ouput = func(*args, **kwargs)
-            end = perf_counter()
-            results.append(end - start)
+            try:
+                start = perf_counter()
+                output = func(*args, **kwargs)
+                end = perf_counter()
+                results.append(end - start)
+            except Exception as e:
+                print(f"Exception in {func.__name__}: {e}")
+                break
         average: float = sum(results) / len(results)
-        print(f"Benchmarking {func.__name__}{tuple(parameters)} took {average:.12f} seconds")
-        return ouput
+        print(f"Benchmarking {func.__name__}{parameters} took {average:.12f} seconds")
+        return output
     return wrapper
