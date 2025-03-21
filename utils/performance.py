@@ -10,7 +10,7 @@ def benchmark(func: Callable) -> Callable:
     """
     Decorator to benchmark a function
     ---
-    when there is a TypeError when decorating your function please use the base function instead of the decorator like this:
+    when there is a TypeError when decorating your function or testing a function that that isn't in your code please use the base function instead of the decorator like this:
     benchmark(func)(args)\n
     :param func: "function to benchmark"\n
     :type func: "Callable"\n
