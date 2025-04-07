@@ -1,11 +1,11 @@
 from collections import deque
 from collections.abc import Callable
-from functools import wraps, cache
+from functools import wraps, lru_cache
 from time import perf_counter
 from itertools import repeat
 
 
-@cache
+@lru_cache(maxsize=4096)
 def benchmark(func: Callable) -> Callable:
     """
     Decorator to benchmark a function
